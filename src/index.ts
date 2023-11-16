@@ -1,11 +1,8 @@
 import "dotenv/config";
 
-console.log("Hello world!");
+console.log("Telegram Bot: is listening...");
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
-console.log("telegramBotToken:", telegramBotToken);
-
-// Bing example
 
 import TelegramBot from "node-telegram-bot-api";
 const token = telegramBotToken!;
@@ -14,11 +11,11 @@ const bot = new TelegramBot(token, {
 });
 
 // Listen for any kind of message
-bot.on("message", (msg) => {
-  console.log(msg);
+bot.on("message", (message) => {
+  console.log(message);
 });
 
 // Listen for when a user joins the chat
-bot.on("new_chat_members", (msg) => {
-  console.log(msg);
+bot.on("new_chat_members", (message) => {
+  console.log(message);
 });
