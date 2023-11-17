@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "npx tsx watch src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "deploy": "vercel deploy --prod"
   },
   "keywords": [],
   "author": "",
