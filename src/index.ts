@@ -31,3 +31,22 @@ http
     res.end("Hello World!");
   })
   .listen(port);
+
+// Todos
+// * Create a MongoDB Atlas account - [ ]
+// * Create a database - [ ]
+// * Create a test counter collection - [ ]
+
+// * Transform http server to Express - [ ]
+// * Connect to MongoDB via Mongoose - [ ]
+// * Express server serves:
+//   - Page retrieving the counter value - [ ]
+//   - Page incrementing the counter value - [ ]
+
+// * Telegram bot:
+//   - Add the command to set social links - [ ]
+//   - Create some MongoDB collection to save this data in the proper collection - [ ]
+//   - Listen to webhooks when this data is requested and send the data back - [ ]
+//   - URL link validation
+//     - In case of error, send a message to the user - [ ]
+//     - In case of success, send a message to the user - [ ]
