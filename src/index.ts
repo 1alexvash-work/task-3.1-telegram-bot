@@ -20,7 +20,7 @@ bot.on("new_chat_members", (message) => {
   console.log(message);
 });
 
-// set express server on the port 3000
+// Set express server on the port 3000
 import express from "express";
 
 const app = express();
@@ -34,7 +34,7 @@ app.listen(port, () => {
   console.log(`Express server is listening on port ${port}`);
 });
 
-// create mongoose connection to MongoDB
+// Create mongoose connection to MongoDB
 import mongoose from "mongoose";
 
 const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ovflcai.mongodb.net/`;
@@ -46,11 +46,30 @@ try {
   console.error("MongoDB connection error:", error);
 }
 
+// Increease the counter value
+import Counter from "./models/Counter.js";
+
+const counterName = "foxMindedTask";
+await Counter.findOneAndUpdate(
+  {
+    name: counterName,
+  },
+  {
+    $inc: {
+      count: 1,
+    },
+  },
+  {
+    upsert: true,
+    new: true,
+  }
+);
+
 // Todos
 // * Create a MongoDB Atlas account - [x]
 // * Create a database - [x]
 // * Allow access to db from all IPs - [x]
-// * Create a test counter collection - [ ]
+// * Create a test counter collection - [x]
 
 // * Transform http server to Express - [x]
 // * Connect to MongoDB via Mongoose - [x]
