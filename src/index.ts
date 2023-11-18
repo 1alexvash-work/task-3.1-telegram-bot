@@ -33,7 +33,7 @@ http
   .listen(port);
 
 // Todos
-// * Create a MongoDB Atlas account - [ ]
+// * Create a MongoDB Atlas account - [x]
 // * Create a database - [ ]
 // * Create a test counter collection - [ ]
 
