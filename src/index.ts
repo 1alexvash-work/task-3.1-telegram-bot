@@ -46,48 +46,6 @@ try {
   console.error("MongoDB connection error:", error);
 }
 
-// Increease the counter value
-import Counter from "./models/Counter.js";
-
-const counterName = "foxMindedTask";
-await Counter.findOneAndUpdate(
-  {
-    name: counterName,
-  },
-  {
-    $inc: {
-      count: 1,
-    },
-  },
-  {
-    upsert: true,
-    new: true,
-  }
-);
-
-app.get("/counter/state", async (req, res) => {
-  const counter = await Counter.findOne({
-    name: counterName,
-  });
-
-  res.json({ counter });
-});
-
-app.get("/counter/increment", async (req, res) => {
-  await Counter.findOneAndUpdate(
-    {
-      name: counterName,
-    },
-    {
-      $inc: {
-        count: 1,
-      },
-    }
-  );
-
-  res.send("Counter value was incremented");
-});
-
 // Todos
 // * Create a MongoDB Atlas account - [x]
 // * Create a database - [x]
