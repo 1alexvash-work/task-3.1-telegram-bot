@@ -34,13 +34,23 @@ app.listen(port, () => {
   console.log(`Express server is listening on port ${port}`);
 });
 
+// create mongoose connection to MongoDB
+import mongoose from "mongoose";
+
+const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ovflcai.mongodb.net/`;
+
+mongoose
+  .connect(DB_URL)
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((error) => console.error("MongoDB connection error:", error));
+
 // Todos
 // * Create a MongoDB Atlas account - [x]
-// * Create a database - [ ]
+// * Create a database - [x]
 // * Create a test counter collection - [ ]
 
 // * Transform http server to Express - [x]
-// * Connect to MongoDB via Mongoose - [ ]
+// * Connect to MongoDB via Mongoose - [x]
 // * Express server serves:
 //   - Page retrieving the counter value - [ ]
 //   - Page incrementing the counter value - [ ]
