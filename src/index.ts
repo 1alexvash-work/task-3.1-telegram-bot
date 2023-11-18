@@ -36,6 +36,7 @@ app.listen(port, () => {
 
 // create mongoose connection to MongoDB
 import mongoose from "mongoose";
+import Cat from "./models/Cat.js";
 
 const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ovflcai.mongodb.net/`;
 
@@ -43,6 +44,17 @@ mongoose
   .connect(DB_URL)
   .then(() => console.log("MongoDB connected successfully"))
   .catch((error) => console.error("MongoDB connection error:", error));
+
+const kitty = new Cat({
+  name: "Nice Kitty",
+});
+
+try {
+  await kitty.save();
+  console.log("meow");
+} catch (error) {
+  console.log("error:", error);
+}
 
 // Todos
 // * Create a MongoDB Atlas account - [x]
