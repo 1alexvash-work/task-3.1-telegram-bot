@@ -65,6 +65,29 @@ await Counter.findOneAndUpdate(
   }
 );
 
+app.get("/counter/state", async (req, res) => {
+  const counter = await Counter.findOne({
+    name: counterName,
+  });
+
+  res.json({ counter });
+});
+
+app.get("/counter/increment", async (req, res) => {
+  await Counter.findOneAndUpdate(
+    {
+      name: counterName,
+    },
+    {
+      $inc: {
+        count: 1,
+      },
+    }
+  );
+
+  res.send("Counter value was incremented");
+});
+
 // Todos
 // * Create a MongoDB Atlas account - [x]
 // * Create a database - [x]
@@ -74,8 +97,8 @@ await Counter.findOneAndUpdate(
 // * Transform http server to Express - [x]
 // * Connect to MongoDB via Mongoose - [x]
 // * Express server serves:
-//   - Page retrieving the counter value - [ ]
-//   - Page incrementing the counter value - [ ]
+//   - Page retrieving the counter value - [x]
+//   - Page incrementing the counter value - [x]
 
 // * Telegram bot:
 //   - Add the command to set social links - [ ]
