@@ -40,10 +40,12 @@ import Cat from "./models/Cat.js";
 
 const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ovflcai.mongodb.net/`;
 
-mongoose
-  .connect(DB_URL)
-  .then(() => console.log("MongoDB connected successfully"))
-  .catch((error) => console.error("MongoDB connection error:", error));
+try {
+  await mongoose.connect(DB_URL);
+  console.log("MongoDB connected successfully");
+} catch (error) {
+  console.error("MongoDB connection error:", error);
+}
 
 const kitty = new Cat({
   name: "Nice Kitty",
