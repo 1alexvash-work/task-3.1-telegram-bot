@@ -49,6 +49,7 @@ try {
 // Todos
 // * Create a MongoDB Atlas account - [x]
 // * Create a database - [x]
+// * Allow access to db from all IPs - [x]
 // * Create a test counter collection - [ ]
 
 // * Transform http server to Express - [x]
