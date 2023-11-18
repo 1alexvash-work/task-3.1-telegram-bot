@@ -20,24 +20,26 @@ bot.on("new_chat_members", (message) => {
   console.log(message);
 });
 
-// set http server on the port 3000
-import http from "http";
+// set express server on the port 3000
+import express from "express";
 
+const app = express();
 const port = process.env.PORT || 3000;
 
-http
-  .createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello World!");
-  })
-  .listen(port);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+app.listen(port, () => {
+  console.log(`Express server is listening on port ${port}`);
+});
 
 // Todos
 // * Create a MongoDB Atlas account - [x]
 // * Create a database - [ ]
 // * Create a test counter collection - [ ]
 
-// * Transform http server to Express - [ ]
+// * Transform http server to Express - [x]
 // * Connect to MongoDB via Mongoose - [ ]
 // * Express server serves:
 //   - Page retrieving the counter value - [ ]
