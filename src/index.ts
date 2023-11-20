@@ -1,8 +1,8 @@
 import "dotenv/config";
+import TelegramBot from "node-telegram-bot-api";
+import startExpressServer from "./startExpressServer.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
-
-import TelegramBot from "node-telegram-bot-api";
 
 const token = telegramBotToken!;
 const bot = new TelegramBot(token, {
@@ -47,18 +47,7 @@ bot.onText(/\/setaboutmeinfo/, (message) => {
   );
 });
 
-import express from "express";
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-app.listen(port, () => {
-  console.log(`Express server is listening on port ${port} ✅`);
-});
+startExpressServer();
 
 import mongoose from "mongoose";
 
