@@ -1,6 +1,7 @@
 import "dotenv/config";
 import TelegramBot from "node-telegram-bot-api";
 import startExpressServer from "./startExpressServer.js";
+import connectMongoose from "./connectMongoose.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -48,17 +49,7 @@ bot.onText(/\/setaboutmeinfo/, (message) => {
 });
 
 startExpressServer();
-
-import mongoose from "mongoose";
-
-const DB_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ovflcai.mongodb.net/`;
-
-try {
-  await mongoose.connect(DB_URL);
-  console.log("MongoDB ✅");
-} catch (error) {
-  console.error("MongoDB connection error:", error);
-}
+connectMongoose();
 
 // TODOs: Final todos:
 // * Find an appropriate event to trigger when user joins the chat for the first time - []
