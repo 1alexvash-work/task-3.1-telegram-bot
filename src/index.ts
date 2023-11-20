@@ -20,6 +20,7 @@ bot.on("message", (message) => {
 
 // Listen for when a user joins the chat
 bot.on("new_chat_members", (message, metadata) => {
+  console.log("Detected new chat member:");
   console.log({
     message,
     metadata,
@@ -70,22 +71,15 @@ try {
   console.error("MongoDB connection error:", error);
 }
 
-// Todos
-// * Create a MongoDB Atlas account - [x]
-// * Create a database - [x]
-// * Allow access to db from all IPs - [x]
-// * Create a test counter collection - [x]
-
-// * Transform http server to Express - [x]
-// * Connect to MongoDB via Mongoose - [x]
-// * Express server serves:
-//   - Page retrieving the counter value - [x]
-//   - Page incrementing the counter value - [x]
-
-// * Telegram bot:
-//   - Add the command to set social links - [ ]
-//   - Create some MongoDB collection to save this data in the proper collection - [ ]
-//   - Listen to webhooks when this data is requested and send the data back - [ ]
-//   - URL link validation
-//     - In case of error, send a message to the user - [ ]
-//     - In case of success, send a message to the user - [ ]
+// TODOs: Final todos:
+// * Find an appropriate event to trigger when user joins the chat for the first time - []
+// * Implement schema creation on user bot sign up - []
+// * Implement /setaboutmeinfo command - []
+// * Implement /aboutme command - []
+// * Implement socials command - []
+// * Add helper for URL validation - []
+//   - Implement /setgithub command - []
+//   - Implement /setlinkedin command - []
+//   - Implement /settwitter command - []
+// * Implement /help command - []
+// * Refactor the code into modules, as a bonus - []
