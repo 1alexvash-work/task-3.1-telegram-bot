@@ -17,15 +17,6 @@ const listenTelegramWebHooks = () => {
     // bot.sendMessage(message.chat.id, "Welcome to the chat!!!");
   });
 
-  // Listen for when a user joins the chat
-  bot.on("new_chat_members", (message, metadata) => {
-    console.log("Detected new chat member:");
-    console.log({
-      message,
-      metadata,
-    });
-  });
-
   bot.onText(/\/setaboutmeinfo (.+)/, (message, match) => {
     const chatId = message.chat.id;
     const response = match && match[1];
