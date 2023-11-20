@@ -18,5 +18,5 @@ connectMongoose();
 //   - Implement /setgithub command - []
 //   - Implement /setlinkedin command - []
 //   - Implement /settwitter command - []
-// * Implement /help command - []
+// * Implement /help command - [x]
 // * Refactor the code into modules, as a bonus - [x]

@@ -45,6 +45,14 @@ const listenTelegramWebHooks = () => {
       "Please provide with some information about yourself after /setaboutmeinfo command"
     );
   });
+
+  bot.onText(/\/help/, (message) => {
+    const chatId = message.chat.id;
+    bot.sendMessage(
+      chatId,
+      "This bot stores information about you and your social medias"
+    );
+  });
 };
 
 export default listenTelegramWebHooks;
