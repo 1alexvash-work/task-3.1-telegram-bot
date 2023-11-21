@@ -35,13 +35,35 @@ const listenTelegramWebHooks = () => {
     }
 
     try {
-      const result = await telegramUserInfo.findOneAndUpdate(
+      await telegramUserInfo.findOneAndUpdate(
         {
           username: message.chat.username,
         },
         {
           aboutMe: response,
         },
+        {
+          upsert: true,
+        }
+      );
+    } catch (error) {
+      bot.sendMessage(chatId, `Something went wrong: ${error}`);
+    }
+  });
+
+  bot.onText(/\/start/, async (message) => {
+    const chatId = message.chat.id;
+    bot.sendMessage(
+      chatId,
+      "Welcome to the bot! Check what this bot can do with /help"
+    );
+
+    try {
+      const result = await telegramUserInfo.findOneAndUpdate(
+        {
+          username: message.chat.username,
+        },
+        {},
         {
           upsert: true,
         }
