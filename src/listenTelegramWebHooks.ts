@@ -124,7 +124,23 @@ const listenTelegramWebHooks = () => {
     }
   });
 
-  // TODO: implement /setlinks
+  bot.onText(
+    /^\/setlinks(?:\s+(\S+))?(?:\s+(\S+))?$/,
+    async (message, match) => {
+      const chatId = message.chat.id;
+      const social = match && match[1];
+      const link = match && match[2];
+
+      if (social === undefined || link === undefined) {
+        bot.sendMessage(
+          chatId,
+          "The format is wrong. Use /setlinks <social> <link>"
+        );
+
+        return;
+      }
+    }
+  );
 };
 
 export default listenTelegramWebHooks;
