@@ -23,7 +23,7 @@ const listenTelegramWebHooks = () => {
     );
 
     try {
-      const result = await telegramUserInfo.findOneAndUpdate(
+      await telegramUserInfo.findOneAndUpdate(
         {
           username: message.chat.username,
         },
@@ -32,8 +32,6 @@ const listenTelegramWebHooks = () => {
           upsert: true,
         }
       );
-
-      console.log("result:", result);
     } catch (error) {
       bot.sendMessage(chatId, `Something went wrong: ${error}`);
     }
@@ -160,6 +158,24 @@ const listenTelegramWebHooks = () => {
 
         return;
       }
+
+      try {
+        await telegramUserInfo.findOneAndUpdate(
+          {
+            username: message.chat.username,
+          },
+          {
+            [`socials.${social}`]: linkURL,
+          },
+          {
+            upsert: true,
+          }
+        );
+      } catch (error) {
+        bot.sendMessage(chatId, `Something went wrong: ${error}`);
+      }
+
+      bot.sendMessage(chatId, "Link is saved");
     }
   );
 };
