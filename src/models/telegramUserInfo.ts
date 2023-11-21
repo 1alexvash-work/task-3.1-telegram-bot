@@ -1,12 +1,20 @@
 import mongoose, { Schema } from "mongoose";
 
+export type SupportedSocials = "github" | "linkedIn" | "twitter";
+
+export const supportedSocials: SupportedSocials[] = [
+  "github",
+  "linkedIn",
+  "twitter",
+];
+
 interface telegramUserInfoModel extends Document {
   username: string;
   aboutMe: string;
   socials: {
-    github: string;
-    linkedIn: string;
-    twitter: string;
+    github: SupportedSocials | "";
+    linkedIn: SupportedSocials | "";
+    twitter: SupportedSocials | "";
   };
 }
 

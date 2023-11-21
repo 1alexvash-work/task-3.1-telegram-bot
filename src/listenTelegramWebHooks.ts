@@ -1,10 +1,7 @@
-// TODO:
-// figure out regex for /setaboutmeinfo with and without arguments
-// save the data to the database
-// implement /start command
-
 import TelegramBot from "node-telegram-bot-api";
-import telegramUserInfo from "./models/telegramUserInfo.js";
+import telegramUserInfo, {
+  supportedSocials,
+} from "./models/telegramUserInfo.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const token = telegramBotToken!;
@@ -38,6 +35,14 @@ const listenTelegramWebHooks = () => {
     } catch (error) {
       bot.sendMessage(chatId, `Something went wrong: ${error}`);
     }
+  });
+
+  bot.onText(/\/help/, (message) => {
+    const chatId = message.chat.id;
+    bot.sendMessage(
+      chatId,
+      "This bot stores information about you and your social medias"
+    );
   });
 
   bot.onText(/\/about/, async (message) => {
@@ -92,13 +97,34 @@ const listenTelegramWebHooks = () => {
     }
   });
 
-  bot.onText(/\/help/, (message) => {
+  bot.onText(/\/links/, async (message) => {
     const chatId = message.chat.id;
-    bot.sendMessage(
-      chatId,
-      "This bot stores information about you and your social medias"
-    );
+
+    const userInfo = await telegramUserInfo.findOne({
+      username: message.chat.username,
+    });
+
+    const links = supportedSocials
+      .map((social) => {
+        const link = userInfo!.socials[social];
+
+        if (link) {
+          return `${social}: ${link}`;
+        }
+
+        return null;
+      })
+      .filter((link) => link !== null)
+      .join("\n");
+
+    if (links.length > 0) {
+      bot.sendMessage(chatId, "Your social links are: \n" + links);
+    } else {
+      bot.sendMessage(chatId, "No links are set. Set them with /setlinks");
+    }
   });
+
+  // TODO: implement /setlinks
 };
 
 export default listenTelegramWebHooks;
