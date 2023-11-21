@@ -4,6 +4,7 @@
 // implement /start command
 
 import TelegramBot from "node-telegram-bot-api";
+import telegramUserInfo from "./models/telegramUserInfo.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const token = telegramBotToken!;
@@ -21,11 +22,35 @@ const listenTelegramWebHooks = () => {
     // bot.sendMessage(message.chat.id, "Welcome to the chat!!!");
   });
 
-  bot.onText(/^\/setaboutmeinfo(?:\s+(.+))?$/, (message, match) => {
+  bot.onText(/^\/setaboutmeinfo(?:\s+(.+))?$/, async (message, match) => {
     const chatId = message.chat.id;
-    const response = match && match[1]; // this will contain the arguments passed to the command
-    console.log("response:", response);
-    // you can now use 'response' to process the arguments
+    const response = match && match[1];
+
+    if (response === undefined) {
+      bot.sendMessage(
+        chatId,
+        "You need to provide some information about yourself"
+      );
+      return;
+    }
+
+    try {
+      const result = await telegramUserInfo.findOneAndUpdate(
+        {
+          username: message.chat.username,
+        },
+        {
+          aboutMe: response,
+        },
+        {
+          upsert: true,
+        }
+      );
+
+      console.log("result:", result);
+    } catch (error) {
+      bot.sendMessage(chatId, `Something went wrong: ${error}`);
+    }
   });
 
   bot.onText(/\/help/, (message) => {
