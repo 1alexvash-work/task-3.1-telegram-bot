@@ -1,3 +1,8 @@
+// TODO:
+// figure out regex for /setaboutmeinfo with and without arguments
+// save the data to the database
+// implement /start command
+
 import TelegramBot from "node-telegram-bot-api";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -12,29 +17,15 @@ const listenTelegramWebHooks = () => {
 
   // Listen for any kind of message
   bot.on("message", (message) => {
-    console.log(message);
-
+    // console.log('message:', message)
     // bot.sendMessage(message.chat.id, "Welcome to the chat!!!");
   });
 
-  bot.onText(/\/setaboutmeinfo (.+)/, (message, match) => {
+  bot.onText(/^\/setaboutmeinfo(?:\s+(.+))?$/, (message, match) => {
     const chatId = message.chat.id;
-    const response = match && match[1];
-
-    if (response) {
-      bot.sendMessage(
-        chatId,
-        "Your information has been saved successfully. Use /aboutme to see it."
-      );
-    }
-  });
-
-  bot.onText(/\/setaboutmeinfo/, (message) => {
-    const chatId = message.chat.id;
-    bot.sendMessage(
-      chatId,
-      "Please provide with some information about yourself after /setaboutmeinfo command"
-    );
+    const response = match && match[1]; // this will contain the arguments passed to the command
+    console.log("response:", response);
+    // you can now use 'response' to process the arguments
   });
 
   bot.onText(/\/help/, (message) => {
