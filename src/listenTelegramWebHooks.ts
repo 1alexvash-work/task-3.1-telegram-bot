@@ -1,7 +1,9 @@
 import TelegramBot from "node-telegram-bot-api";
 import telegramUserInfo, {
+  SupportedSocials,
   supportedSocials,
 } from "./models/telegramUserInfo.js";
+import validateURL from "./helpers/validateURL.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const token = telegramBotToken!;
@@ -129,13 +131,32 @@ const listenTelegramWebHooks = () => {
     async (message, match) => {
       const chatId = message.chat.id;
       const social = match && match[1];
-      const link = match && match[2];
+      const linkURL = match && match[2];
 
-      if (social === undefined || link === undefined) {
+      if (social === undefined || linkURL === undefined) {
         bot.sendMessage(
           chatId,
           "The format is wrong. Use /setlinks <social> <link>"
         );
+
+        return;
+      }
+
+      if (
+        supportedSocials.includes(social!.toLowerCase() as SupportedSocials) ===
+        false
+      ) {
+        bot.sendMessage(
+          chatId,
+          "The social is not supported. Supported socials are: " +
+            supportedSocials.join(", ")
+        );
+
+        return;
+      }
+
+      if (validateURL(linkURL!) === false) {
+        bot.sendMessage(chatId, "The link is not valid");
 
         return;
       }
