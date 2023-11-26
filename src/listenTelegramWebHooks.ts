@@ -4,6 +4,7 @@ import telegramUserInfo, {
   supportedSocials,
 } from "./models/telegramUserInfo.js";
 import validateURL from "./helpers/validateURL.js";
+import logger from "./logger.js";
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const token = telegramBotToken!;
@@ -13,7 +14,7 @@ const listenTelegramWebHooks = () => {
     polling: true,
   });
 
-  console.log("Telegram Bot Webhooks are active ✅");
+  logger.info("Telegram Bot Webhooks are active ✅");
 
   bot.onText(/\/start/, async (message) => {
     const chatId = message.chat.id;

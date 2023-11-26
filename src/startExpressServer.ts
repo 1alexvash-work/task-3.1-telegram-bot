@@ -1,4 +1,5 @@
 import express from "express";
+import logger from "./logger.js";
 
 const startExpressServer = () => {
   const app = express();
@@ -9,7 +10,7 @@ const startExpressServer = () => {
   });
 
   app.listen(port, () => {
-    console.log(`Express server is listening on port ${port} ✅`);
+    logger.info(`Express server is listening on port ${port} ✅`);
   });
 };
 
